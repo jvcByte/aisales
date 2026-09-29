@@ -1,0 +1,41 @@
+{
+  "model": [
+    "gemini",
+    "groq",
+    "huggingface",
+    "openrouter"
+  ],
+  "accuracy": 1.0,
+  "responses": {
+    "Abeg how much?": "{\"intent\": \"price_enquiry\", \"confidence\": 1.0, \"slots\": {}}",
+    "How much last?": "{\"intent\": \"discount_request\", \"confidence\": 0.99, \"slots\": {}}",
+    "Last price?": "{\"intent\":\"discount_request\",\"confidence\":0.99,\"slots\":{}}",
+    "Reduce am": "{\"intent\":\"discount_request\",\"confidence\":0.99,\"slots\":{}}",
+    "Abeg reduce small": "{\"intent\":\"discount_request\",\"confidence\":0.97,\"slots\":{}}",
+    "Send account": "{\"intent\": \"payment_intent\", \"confidence\": 0.99, \"slots\": {}}",
+    "Oya send the account number": "{\"intent\":\"payment_intent\",\"confidence\":0.98,\"slots\":{}}",
+    "Send me the link": "{\"intent\": \"payment_intent\", \"confidence\": 0.99, \"slots\": {}}",
+    "Chop my money, abeg send am": "{\"intent\":\"payment_intent\",\"confidence\":0.95,\"slots\":{}}",
+    "You get XL?": "{\"intent\":\"availability_check\",\"confidence\":1.0,\"slots\":{\"size\":\"XL\"}}",
+    "E dey size 42?": "{\"intent\":\"availability_check\",\"confidence\":1.0,\"slots\":{\"size\":\"42\"}}",
+    "Na how much be this one?": "{\"intent\":\"price_enquiry\",\"confidence\":0.96,\"slots\":{}}",
+    "Wetin be the price for the lace?": "{\"intent\": \"price_enquiry\", \"confidence\": 0.98, \"slots\": {}}",
+    "I wan buy": "{\"intent\": \"buy_intent\", \"confidence\": 0.95, \"slots\": {}}",
+    "Give me two": "{\"intent\": \"buy_intent\", \"confidence\": 0.98, \"slots\": {\"qty\": \"2\"}}",
+    "Abeg, e dey red?": "{\"intent\": \"variant_check\", \"confidence\": 0.95, \"slots\": {\"colour\": \"red\"}}",
+    "Na only this colour you get?": "{\"intent\":\"variant_check\",\"confidence\":0.98,\"slots\":{}}",
+    "Wetin you get for gown?": "{\"intent\":\"browse\",\"confidence\":0.95,\"slots\":{\"product_hint\":\"gown\"}}",
+    "Make I see am": "{\"intent\":\"browse\",\"confidence\":0.95,\"slots\":{}}",
+    "Do you deliver to Abuja?": "{\"intent\": \"delivery_enquiry\", \"confidence\": 0.99, \"slots\": {}}",
+    "You dey do delivery?": "{\"intent\": \"delivery_enquiry\", \"confidence\": 0.98, \"slots\": {}}",
+    "When you go deliver?": "{\"intent\": \"delivery_enquiry\", \"confidence\": 0.95, \"slots\": {}}",
+    "How far, you don send am?": "{\"intent\": \"delivery_status\", \"confidence\": 0.96, \"slots\": {}}",
+    "I don pay": "{\"intent\": \"payment_claim\", \"confidence\": 1.0, \"slots\": {}}",
+    "My money don go?": "{\"intent\":\"payment_claim\",\"confidence\":0.93,\"slots\":{}}",
+    "₦12,500 na too much": "{\"intent\": \"price_objection\", \"confidence\": 0.97, \"slots\": {}}",
+    "Sorry, e too cost": "{\"intent\": \"price_objection\", \"confidence\": 0.98, \"slots\": {}}",
+    "I no get cash now, next week": "{\"intent\":\"deferral\",\"confidence\":0.95,\"slots\":{}}",
+    "I go get back to you": "{\"intent\": \"deferral\", \"confidence\": 0.99, \"slots\": {}}",
+    "Abeg hold am for me": "{\"intent\":\"reserve_request\",\"confidence\":0.97,\"slots\":{}}"
+  }
+}

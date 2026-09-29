@@ -1,0 +1,73 @@
+# api + worker + the dashboard, against a Postgres from the host by default.
+#
+# No Redis, deliberately: the whole queue is `FOR UPDATE SKIP LOCKED` against
+# the same database, so there is one service to run and one thing to back up.
+#
+#   docker compose up -d postgres
+#   python -m aisales_worker --install --seed
+#   docker compose up api worker
+
+name: aisales
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: aisales
+      POSTGRES_PASSWORD: aisales
+      POSTGRES_DB: aisales
+    ports:
+      - "5433:5432"        # 5433 so it cannot collide with a local Postgres
+    volumes:
+      - aisales-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # `depends_on: service_healthy` needs a real check, not just a started
+      # container: Postgres accepts a connection some seconds after it starts.
+      test: ["CMD-SHELL", "pg_isready -U aisales -d aisales"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        COMPONENT: api
+    environment:
+      AISALES_DSN: postgresql://aisales:aisales@postgres:5432/aisales
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      HF_TOKEN: ${HF_TOKEN:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      PAYSTACK_SECRET_KEY: ${PAYSTACK_SECRET_KEY:-}
+      AISALES_FAKES: ${AISALES_FAKES:-0}
+    ports:
+      - "8100:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["python", "-m", "aisales_api", "--host", "0.0.0.0", "--port", "8000"]
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        COMPONENT: worker
+    environment:
+      AISALES_DSN: postgresql://aisales:aisales@postgres:5432/aisales
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      HF_TOKEN: ${HF_TOKEN:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      PAYSTACK_SECRET_KEY: ${PAYSTACK_SECRET_KEY:-}
+      AISALES_CHANNEL: ${AISALES_CHANNEL:-simulator}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["python", "-m", "aisales_worker", "--install", "--poll", "2"]
+
+volumes:
+  aisales-pgdata:

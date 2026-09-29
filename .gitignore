@@ -1,0 +1,20 @@
+# Secrets. `.env` holds real model and payment keys; `.env.example` is the
+# template and is committed.
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+.next/
+*.tsbuildinfo
+
+# NOTE: `core/src` used to be listed here, which silently excluded the entire
+# core package -- the schema, the guard, the agent. Every other path in this
+# file is a build artifact; that one was the product.

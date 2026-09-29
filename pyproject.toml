@@ -1,0 +1,21 @@
+# Workspace root.
+#
+# Each component is its own project under core/, api/ and worker/, with its own
+# pyproject.toml. This file carries only shared tool configuration, so `pytest`
+# and `ruff` work from the repository root.
+#
+# There is deliberately no package at the root. A `aisales/` directory here
+# would be first on sys.path from the repository root and would shadow
+# `core/src/aisales/`, so `pytest` would collect the wrong code and
+# `import aisales` would give you the wrong module.
+
+[tool.pytest.ini_options]
+testpaths = ["core/tests", "api/tests"]
+pythonpath = ["core/src", "api/src", "worker/src"]
+markers = [
+    "live: needs a real model key and spends quota; run with AISALES_LIVE=1",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

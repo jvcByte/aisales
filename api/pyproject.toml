@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aisales-api"
+version = "0.1.0"
+description = "FastAPI surface: channel webhooks, dashboard API, and the simulator"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.110", "uvicorn[standard]>=0.27", "aisales"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
